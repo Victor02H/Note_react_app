@@ -34,6 +34,7 @@ export default function Home() {
 
   async function updateAnnotation(annotationId) {
     
+    
   }
 
   return (
