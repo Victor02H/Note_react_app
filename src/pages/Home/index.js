@@ -1,12 +1,12 @@
 import axios from "axios";
 
 import { useState, useEffect } from "react";
-import { FaTrash, FaCheck } from "react-icons/fa";
+import { FaTrash, FaCheck, FaPen } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 export default function Home() {
-  const [userAnnotation, setUserAnnotation] = useState("");
-  const [annotationList, setAnnotationList] = useState([]);
+  const [userAnnotation, setUserAnnotation] = useState(null);
+  const [annotationList, setAnnotationList] = useState(null);
 
   useEffect(() => {
     (async function () {
@@ -32,8 +32,12 @@ export default function Home() {
       .catch(err => console.log(err));
   }
 
+  async function updateAnnotation(annotationId) {
+    
+  }
+
   return (
-    <div className="col-12">
+    <div className="col-12 user-select-none">
       <div className="mt-5">
         <h2 className="text-center">Adicione suas anotações</h2>
       </div>
@@ -55,28 +59,33 @@ export default function Home() {
         </div>
       </div>
 
-      {annotationList.length !== 0 &&
+      {annotationList.length !== 0 ? (
         annotationList.map((item, index) => {
           return (
             <div key={index} className="col-12 row justify-content-center mb-3 p-0">
               <div className="col-6 row align-items-center bg-white px-0 py-3 card-annotation rounded">
                 <div className="row align-items-center justify-content-between">
-                  <p className="m-0 col-auto">{item.annotation}</p>
+                  <p className="m-0 col-auto user-select-all">{item.annotation}</p>
 
-                  <button className="bg-transparent col-auto border-0 outline-0" onClick={() => deleteAnnotation(item.id)}>
-                    <FaTrash
-                      size={20}
-                      color="#e33434"
-                      className="col-auto"
-                      style={{ cursor: "pointer" }}
-                    />
-                  </button>
+                  <div className="col-auto row p-0">
+                    <button className="bg-transparent col-auto border-0 outline-0" onClick={() => updateAnnotation(item.id)}>
+                      <FaPen size={20} color="#2773e6" className="col-auto" />
+                    </button>
+
+                    <button className="bg-transparent col-auto border-0 outline-0" onClick={() => deleteAnnotation(item.id)}>
+                      <FaTrash size={20} color="#e33434" className="col-auto" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           );
         })
-      }
+      ) : (
+        <div className="col-12 text-center" style={{ color: "#686868" }}>
+          <span>Você não possui anotações :(</span>
+        </div>
+      )}
     </div>
   );
 }
