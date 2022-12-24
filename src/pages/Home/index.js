@@ -22,8 +22,6 @@ export default function Home() {
     })();
   }, [annotationList]);
 
-  useEffect(() => { console.log(editAnnotation) }, [editAnnotation])
-
   async function addAnnotation() {
     await axios.post("http://localhost:3001/add-annotation", {
       annotation: userAnnotation,
