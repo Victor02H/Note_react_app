@@ -13,7 +13,7 @@ db.connect((err) => {
       console.log('Erro connecting to database...', err)
       return
   }
-  console.log('Connection established!')
+  console.log('Connection established!');
 })
 
 module.exports = db;

@@ -11,7 +11,7 @@ app.get("/", (req, res) => {
   db.query("SELECT * FROM annotations", (err, rows) => {
     if (err) return console.log(err);
 
-    res.status(200).json(rows)
+    res.status(200).json(rows);
   });
 })
 
@@ -20,8 +20,6 @@ app.post("/add-annotation", (req, res) => {
 
   db.query("INSERT INTO annotations (annotation) VALUES (?)", [userAnnotation], (err) => {
     if (err) return res.send(err);
-
-    res.send("Values Inserted");
   });
 })
 
@@ -30,11 +28,16 @@ app.delete("/annotation/:id", (req, res) => {
 
   db.query("DELETE FROM annotations WHERE id=?", id, (err) => {
     if (err) return res.send(err);
-
-    res.send("Values Deleted");
   });
 })
 
-app.listen(3001, () =>
-  console.log('Servidor iniciado na porta 3001')
-);
+app.put("/annotation/:id", (req, res) => {
+  const id = req.params.id;
+  const userAnnotation = req.body.annotation;
+
+  db.query(`UPDATE annotations SET annotation='${userAnnotation}' WHERE id=${id}`, (err) => {
+    if (err) return res.send(err);
+  });
+})
+
+app.listen(3001);
