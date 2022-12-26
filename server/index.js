@@ -40,4 +40,15 @@ app.put("/annotation/:id", (req, res) => {
   });
 })
 
+/* REGISTER ROUTES */
+app.post("/register-user", (req, res) => {
+  const userName = req.body.name;
+  const userEmail = req.body.email;
+  const userPassword = req.body.password;
+
+  db.query("INSERT INTO users (name, email, password) VALUES (?,?,?)", [userName, userEmail, userPassword], (err) => {
+    if (err) return res.send(err);
+  });
+})
+
 app.listen(3001);

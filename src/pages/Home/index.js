@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { FaTrash, FaCheck, FaPen } from "react-icons/fa";
 import { toast } from "react-toastify";
 
+import Header from "../../components/Header";
+
 export default function Home() {
   const [userAnnotation, setUserAnnotation] = useState("");
   const [annotationList, setAnnotationList] = useState([]);
@@ -54,6 +56,8 @@ export default function Home() {
 
   return (
     <div className="col-12 user-select-none">
+      <Header />
+
       <div className="mt-5">
         <h2 className="text-center">Adicione suas anotações</h2>
       </div>
