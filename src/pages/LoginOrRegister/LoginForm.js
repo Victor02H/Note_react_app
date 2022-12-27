@@ -3,7 +3,11 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
+import { useCookies } from 'react-cookie';
+
 export default function LoginForm() {
+  const [cookies, setCookie] = useCookies();
+
   const [userEmail, setUserEmail] = useState(null);
   const [userPassword, setUserPassword] = useState(null);
 
@@ -17,12 +21,18 @@ export default function LoginForm() {
         data.forEach(user => {
           if ((user.email === userEmail) && (user.password === userPassword)) {
             toast.success(`Bem Vindo(a) ${user.name}`);
-
+            
+            addUserCookies(user.name, user.id);
             return navigate("/");
           }
         })
       })
       .catch((err) => console.log(err));
+  }
+
+  function addUserCookies(userName, userID) {
+    setCookie('user_id', userID, { path: '/' });
+    setCookie('user_name', userName, { path: '/' });
   }
 
   return (
