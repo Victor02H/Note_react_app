@@ -5,7 +5,7 @@ import RegisterForm from "./RegisterForm";
 
 export default function Login() {
   const [isRegisterAccount, setIsRegisterAccount] = useState(false);
-
+  
   return (
     <div className="col-12 d-flex align-items-center justify-content-center vh-100">
       <div className="col-6 bg-light d-flex justify-content-center p-3 rounded">

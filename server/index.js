@@ -51,4 +51,13 @@ app.post("/register-user", (req, res) => {
   });
 })
 
+/* LOGIN ROUTES */
+app.get("/users", (req, res) => {
+  db.query("SELECT * FROM users", (err, rows) => {
+    if (err) return res.send(err);
+
+    res.status(200).json(rows);
+  });
+})
+
 app.listen(3001);

@@ -1,12 +1,39 @@
+import axios from "axios";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 export default function LoginForm() {
+  const [userEmail, setUserEmail] = useState(null);
+  const [userPassword, setUserPassword] = useState(null);
+
+  const navigate = useNavigate();
+
+  async function login(e) {
+    e.preventDefault();
+
+    await axios.get("http://localhost:3001/users")
+      .then(({ data }) => {
+        data.forEach(user => {
+          if ((user.email === userEmail) && (user.password === userPassword)) {
+            toast.success(`Bem Vindo(a) ${user.name}`);
+
+            return navigate("/");
+          }
+        })
+      })
+      .catch((err) => console.log(err));
+  }
+
   return (
-    <form>
+    <form onSubmit={login}>
       <div className="d-flex flex-wrap gap-3">
         <input
           type="text"
           className="col-12 p-2 border"
           placeholder="User Name"
           name="user_name"
+          onChange={(e) => setUserEmail(e.target.value)}
         />
 
         <input
@@ -14,6 +41,7 @@ export default function LoginForm() {
           className="col-12 p-2 border"
           placeholder="Password"
           name="user_password"
+          onChange={(e) => setUserPassword(e.target.value)}
         />
       </div>
 
