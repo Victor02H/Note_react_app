@@ -6,7 +6,12 @@ import { FaUserAlt } from "react-icons/fa";
 import { useCookies } from 'react-cookie';
 
 export default function Header() {
-  const [cookies] = useCookies();
+  const [cookies, setCookies] = useCookies();
+
+  function logout() {
+    setCookies("user_id", "", { path: "/" });
+    setCookies("user_name", "", { path: "/" });
+  }
 
   return (
     <header className="col-12 p-4 row justify-content-end">
@@ -14,7 +19,7 @@ export default function Header() {
         <FaUserAlt /> {cookies.user_name !== "" ? cookies.user_name : "Olá Visitante"}
       </span>
 
-      <Link to="Login" className="col-auto text-decoration-none d-flex align-items-center gap-2 text-secondary">
+      <Link to="Login" className="col-auto text-decoration-none d-flex align-items-center gap-2 text-secondary" onClick={logout}>
         Sair <ImExit />
       </Link>
     </header>
