@@ -14,7 +14,7 @@ export default function Header() {
   }
 
   return (
-    <header className="col-12 p-4 row justify-content-end">
+    <header className="col-12 p-4 row justify-content-between justify-content-md-end">
       <span className="col-auto d-flex align-items-center gap-2 text-secondary">
         <FaUserAlt /> {cookies.user_name !== "" ? cookies.user_name : "Olá Visitante"}
       </span>

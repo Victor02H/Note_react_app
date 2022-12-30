@@ -56,76 +56,78 @@ export default function Home() {
 
   return (
     <div className="col-12 user-select-none">
-      <Header />
+      <div className="container">
+        <Header />
 
-      <div className="mt-5">
-        <h2 className="text-center">Adicione suas anotações</h2>
-      </div>
-
-      <div className="col-12 row mt-3 mb-5 justify-content-center">
-        <div className="col-6 row p-0">
-          <input
-            className="col-11 p-2"
-            onChange={(e) => setUserAnnotation(e.target.value)}
-            type="text"
-            value={userAnnotation}
-            name="annotation"
-            id="annotation"
-          />
-
-          <button onClick={editAnnotation !== true ? addAnnotation : updateAnnotation} className="col-1 add-annotation btn btn-success">
-            <FaCheck />
-          </button>
+        <div className="mt-5">
+          <h2 className="text-center">Adicione suas anotações</h2>
         </div>
-      </div>
 
-      {isLoading === true ? (
-        <div className="col-12 text-center" style={{ color: "#686868" }}>
-          <span>carregando...</span>
+        <div className="co-12 row m-0 justify-content-center">
+          <div className="col-12 col-md-6 row p-0">
+            <input
+              className="col-10 col-md-11 p-2"
+              onChange={(e) => setUserAnnotation(e.target.value)}
+              type="text"
+              value={userAnnotation}
+              name="annotation"
+              id="annotation"
+            />
+
+            <button onClick={editAnnotation !== true ? addAnnotation : updateAnnotation} className="col-2 col-md-1 add-annotation btn btn-success">
+              <FaCheck />
+            </button>
+          </div>
         </div>
-      ) : (
-        <>
-          {annotationList.length === 0 && (
-            <div className="col-12 text-center" style={{ color: "#686868" }}>
-              <span>Você não possui anotações :(</span>
-            </div>
-          )}
-        </>
-      )}
 
-      {(annotationList.length !== 0 && isLoading === false) && (
-        <>
-          {
-            annotationList.map((item, index) => {
-              return (
-                <div key={index} className="col-12 row justify-content-center mb-3 p-0">
-                  <div className="col-6 row align-items-center bg-white px-0 py-3 card-annotation rounded">
-                    <div className="row align-items-center justify-content-between">
-                      <p className="m-0 col-auto user-select-all">{item.annotation}</p>
+        {isLoading === true ? (
+          <div className="col-12 text-center" style={{ color: "#686868" }}>
+            <span>carregando...</span>
+          </div>
+        ) : (
+          <>
+            {annotationList.length === 0 && (
+              <div className="col-12 text-center" style={{ color: "#686868" }}>
+                <span>Você não possui anotações :(</span>
+              </div>
+            )}
+          </>
+        )}
 
-                      <div className="col-auto row p-0">
-                        <button className="bg-transparent col-auto border-0 outline-0"
-                          onClick={() => {
-                            setEditAnnotation(true)
-                            setUserAnnotation(item.annotation)
-                            setUserAnnotionID(item.id)
-                          }}
-                        >
-                          <FaPen size={20} color="#2773e6" className="col-auto" />
-                        </button>
+        {(annotationList.length !== 0 && isLoading === false) && (
+          <>
+            {
+              annotationList.map((item, index) => {
+                return (
+                  <div key={index} className="col-12 row justify-content-center mt-5 mb-3 p-0">
+                    <div className="col-6 row align-items-center bg-white px-0 py-3 card-annotation rounded">
+                      <div className="row align-items-center justify-content-between">
+                        <p className="m-0 col-auto user-select-all">{item.annotation}</p>
 
-                        <button className="bg-transparent col-auto border-0 outline-0" onClick={() => deleteAnnotation(item.id)}>
-                          <FaTrash size={20} color="#e33434" className="col-auto" />
-                        </button>
+                        <div className="col-auto row p-0">
+                          <button className="bg-transparent col-auto border-0 outline-0"
+                            onClick={() => {
+                              setEditAnnotation(true)
+                              setUserAnnotation(item.annotation)
+                              setUserAnnotionID(item.id)
+                            }}
+                          >
+                            <FaPen size={20} color="#2773e6" className="col-auto" />
+                          </button>
+
+                          <button className="bg-transparent col-auto border-0 outline-0" onClick={() => deleteAnnotation(item.id)}>
+                            <FaTrash size={20} color="#e33434" className="col-auto" />
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })
-          }
-        </>
-      )}
+                );
+              })
+            }
+          </>
+        )}
+      </div>
     </div>
   );
 }
